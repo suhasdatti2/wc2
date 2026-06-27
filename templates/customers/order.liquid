@@ -1,0 +1,24 @@
+<section class="section" style="padding-top:calc(var(--header-height) + 2rem)">
+  <div class="page-width" style="max-width:840px">
+    <p class="eyebrow">Order {{ order.name }}</p>
+    <h1 class="h2">Placed {{ order.created_at | date: '%B %d, %Y' }}</h1>
+    <p class="text-muted">Status: {{ order.fulfillment_status_label }} · Payment: {{ order.financial_status_label }}</p>
+
+    <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;margin-top:1.5rem">
+      {%- for line in order.line_items -%}
+        <div class="cart-line" style="grid-template-columns:64px 1fr auto;padding:1rem 1.25rem">
+          <div class="cart-line__img"><img src="{{ line.image | image_url: width: 128 }}" alt="{{ line.title | escape }}" width="64" height="64" loading="lazy"></div>
+          <div><div class="cart-line__title">{{ line.title }}</div><div class="cart-line__variant">Qty: {{ line.quantity }}</div></div>
+          <div style="font-weight:700">{{ line.final_line_price | money }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div style="text-align:right;margin-top:1.5rem">
+      <div class="text-muted">Subtotal: {{ order.line_items_subtotal_price | money }}</div>
+      <div class="text-muted">Shipping: {{ order.shipping_price | money }}</div>
+      <div class="cart-subtotal" style="justify-content:flex-end;gap:1rem;font-size:1.3rem">Total: {{ order.total_price | money }}</div>
+    </div>
+    <a href="{{ routes.account_url }}" class="link-underline mt-3" style="display:inline-block">&larr; Back to account</a>
+  </div>
+</section>

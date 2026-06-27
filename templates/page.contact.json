@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-form",
+      "settings": {
+        "heading": "Get In Touch",
+        "text": "Questions about sizing, shipping or an order? Our team replies within 24 hours."
+      }
+    }
+  },
+  "order": ["main"]
+}

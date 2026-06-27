@@ -1,0 +1,269 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign form_id = 'product-form-' | append: section.id
+  assign team = product.metafields.custom.team | default: product.vendor
+  assign inventory = current_variant.inventory_quantity | default: 0
+  assign show_low = false
+  if settings.enable_low_stock and current_variant.inventory_management != blank and inventory > 0 and inventory <= settings.low_stock_threshold
+    assign show_low = true
+  endif
+-%}
+
+<section class="section" data-product data-product-handle="{{ product.handle }}">
+  <div class="page-width">
+    <div class="product">
+      {%- comment -%} ============ GALLERY ============ {%- endcomment -%}
+      <div class="product-gallery">
+        <div class="gallery-main">
+          {%- for media in product.media -%}
+            <div class="gallery-main__slide {% if forloop.first %}is-active{% endif %}">
+              <img src="{{ media | image_url: width: 1000 }}"
+                srcset="{{ media | image_url: width: 600 }} 600w, {{ media | image_url: width: 1000 }} 1000w, {{ media | image_url: width: 1400 }} 1400w"
+                sizes="(max-width:990px) 100vw, 55vw"
+                alt="{{ media.alt | escape | default: product.title }}"
+                width="1000" height="1250"
+                {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+            </div>
+          {%- else -%}
+            <div class="gallery-main__slide is-active">{{ 'product-1' | placeholder_svg_tag }}</div>
+          {%- endfor -%}
+          <span class="badge" style="position:absolute;top:1rem;left:1rem;z-index:3;background:rgba(10,10,10,.6);backdrop-filter:blur(6px)">{% render 'icon', name: 'zoom', width:14, height:14 %} Tap to zoom</span>
+        </div>
+        {%- if product.media.size > 1 -%}
+          <div class="gallery-thumbs">
+            {%- for media in product.media -%}
+              <button type="button" class="gallery-thumb {% if forloop.first %}is-active{% endif %}" aria-label="View image {{ forloop.index }}">
+                <img src="{{ media | image_url: width: 160 }}" alt="" width="76" height="95" loading="lazy">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ============ INFO ============ {%- endcomment -%}
+      <div class="product-info" data-buybox>
+        {%- if team != blank -%}<div class="product-info__team">{{ team }}</div>{%- endif -%}
+        <h1 class="product-info__title h2">{{ product.title }}</h1>
+
+        <div class="product-info__rating">
+          {% render 'rating-stars', product: product %}
+          <span>{{ product.metafields.reviews.rating_count | default: 128 }} reviews</span>
+        </div>
+
+        <div class="product-info__price" data-product-price>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="price__sale">{{ current_variant.price | money }}</span>
+            <span class="price__compare">{{ current_variant.compare_at_price | money }}</span>
+          {%- else -%}
+            {{ current_variant.price | money }}
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Urgency {%- endcomment -%}
+        <div class="urgency-row">
+          {%- if show_low -%}
+            <div class="low-stock">
+              {% render 'icon', name: 'flame', width: 16, height: 16 %}
+              {{ 'products.product.low_stock' | t: count: inventory }}
+              <span class="low-stock__bar"><span class="low-stock__fill" style="width:{{ inventory | times: 100 | divided_by: settings.low_stock_threshold }}%"></span></span>
+            </div>
+          {%- endif -%}
+          {%- if settings.enable_visitor_counter -%}
+            <div class="visitor-count"><span class="pulse-dot"></span><strong data-visitor>18</strong>&nbsp;people are viewing this right now</div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} ============ FORM ============ {%- endcomment -%}
+        {%- form 'product', product, id: form_id, class: 'product-form', novalidate: 'novalidate', data-product-form: 'true' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+          <div class="product-options" {% if product.has_only_default_variant %}hidden{% endif %}>
+            {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <div class="option-group">
+                <div class="option-group__head">
+                  <span class="option-group__label">{{ option.name }}: <span class="text-muted" data-selected-{{ forloop.index }}>{{ option.selected_value }}</span></span>
+                  {%- if option.name contains 'Size' and section.settings.size_guide_page != blank -%}
+                    <a href="{{ pages[section.settings.size_guide_page].url }}" class="link-underline" style="font-size:.85rem">{{ 'products.product.size_guide' | t }}</a>
+                  {%- endif -%}
+                </div>
+                <div class="size-list">
+                  {%- for value in option.values -%}
+                    {%- liquid
+                      assign soldout = true
+                      for v in product.variants
+                        if v.available and v.options contains value
+                          assign soldout = false
+                          break
+                        endif
+                      endfor
+                    -%}
+                    <label class="size-chip {% if soldout %}is-soldout{% endif %} {% if option.selected_value == value %}is-selected{% endif %}">
+                      <input type="radio" name="{{ option.name }}" value="{{ value | escape }}" {% if soldout %}disabled{% endif %} {% if option.selected_value == value %}checked{% endif %}>
+                      {{ value }}
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+            {%- endunless -%}
+          </div>
+
+          <div class="product-purchase">
+            <div class="qty" data-qty>
+              <button type="button" data-qty-minus aria-label="Decrease quantity">−</button>
+              <input type="text" name="quantity" inputmode="numeric" value="1" data-qty-input aria-label="{{ 'products.product.quantity' | t }}">
+              <button type="button" data-qty-plus aria-label="Increase quantity">+</button>
+            </div>
+            <button type="submit" name="add" class="btn btn--primary product-atc" data-atc data-add-label="{{ 'products.product.add_to_cart' | t }}" data-sold-label="{{ 'products.product.sold_out' | t }}" {% unless current_variant.available %}disabled{% endunless %}>
+              <span data-atc-text>{% if current_variant.available %}{{ 'products.product.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+            </button>
+          </div>
+
+          {%- if section.settings.show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- comment -%} Shipping estimate {%- endcomment -%}
+        {%- if section.settings.show_shipping_estimate -%}
+          <div class="trust-item mt-2" style="font-size:.9rem">
+            {% render 'icon', name: 'truck', width: 20, height: 20 %}
+            <span>{{ section.settings.shipping_estimate_text }}</span>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Bundle offers {%- endcomment -%}
+        {%- if section.settings.show_bundle -%}
+          <div class="bundle">
+            <strong>Buy more, save more</strong>
+            <p class="text-muted mb-0" style="font-size:.88rem">Discount applied automatically at checkout.</p>
+            <div class="bundle__tiers">
+              <div class="bundle__tier"><strong>10%</strong><span>Buy 2</span></div>
+              <div class="bundle__tier"><strong>20%</strong><span>Buy 3</span></div>
+              <div class="bundle__tier"><strong>30%</strong><span>Buy 4+</span></div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Trust row {%- endcomment -%}
+        <div class="trust-row">
+          <div class="trust-item">{% render 'icon', name: 'shield' %} Money-back guarantee</div>
+          <div class="trust-item">{% render 'icon', name: 'lock' %} Secure checkout</div>
+          <div class="trust-item">{% render 'icon', name: 'refresh' %} 30-day returns</div>
+          <div class="trust-item">{% render 'icon', name: 'medal' %} Premium quality</div>
+        </div>
+
+        {%- comment -%} Accordions {%- endcomment -%}
+        <div class="accordion">
+          <div class="accordion__item">
+            <button type="button" class="accordion__trigger" aria-expanded="true">Description <span class="accordion__icon">{% render 'icon', name: 'plus', width:18, height:18 %}</span></button>
+            <div class="accordion__panel" style="max-height:none">
+              <div class="accordion__panel-inner">{{ product.description | default: 'Premium match-grade football jersey engineered for comfort, breathability, and an elevated fit. Wear your passion.' }}</div>
+            </div>
+          </div>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'accordion' -%}
+              <div class="accordion__item" {{ block.shopify_attributes }}>
+                <button type="button" class="accordion__trigger" aria-expanded="false">{{ block.settings.title }} <span class="accordion__icon">{% render 'icon', name: 'plus', width:18, height:18 %}</span></button>
+                <div class="accordion__panel"><div class="accordion__panel-inner">{{ block.settings.content }}</div></div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} ============ FREQUENTLY BOUGHT TOGETHER ============ {%- endcomment -%}
+    {%- if section.settings.show_fbt -%}
+      {%- assign fbt_collection = product.collections.first | default: collections.all -%}
+      {%- assign fbt_items = '' -%}
+      <div class="section--tight" data-reveal>
+        <h3 class="text-center">Frequently Bought Together</h3>
+        <div class="fbt" style="justify-content:center">
+          <div class="fbt__item">
+            <img src="{{ product.featured_media | image_url: width: 240 }}" alt="{{ product.title | escape }}">
+            <span style="font-size:.82rem;text-align:center">{{ product.title | truncate: 24 }}</span>
+          </div>
+          {%- assign count = 0 -%}
+          {%- for p in fbt_collection.products -%}
+            {%- if p.id != product.id and count < 2 and p.available -%}
+              <span class="fbt__plus">+</span>
+              <div class="fbt__item">
+                <a href="{{ p.url }}"><img src="{{ p.featured_media | image_url: width: 240 }}" alt="{{ p.title | escape }}"></a>
+                <span style="font-size:.82rem;text-align:center">{{ p.title | truncate: 24 }}</span>
+              </div>
+              {%- assign fbt_items = fbt_items | append: p.selected_or_first_available_variant.id | append: ',' -%}
+              {%- assign count = count | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- assign fbt_items = fbt_items | append: current_variant.id -%}
+          <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;margin-left:1rem">
+            <button type="button" class="btn btn--primary" data-bundle-add data-ids="{{ fbt_items }}">Add all to cart</button>
+            <span class="text-muted" style="font-size:.8rem">Bundle &amp; save</span>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Product JSON for variant switching {%- endcomment -%}
+  <script type="application/json" data-product-json>
+    {
+      "options": [{% for o in product.options %}{{ o | json }}{% unless forloop.last %},{% endunless %}{% endfor %}],
+      "variants": [{% for v in product.variants %}{"id":{{ v.id }},"available":{{ v.available }},"price":{{ v.price }},"compare_at_price":{% if v.compare_at_price %}{{ v.compare_at_price }}{% else %}null{% endif %},"options":{{ v.options | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+    }
+  </script>
+</section>
+
+{%- comment -%} ============ STICKY ATC ============ {%- endcomment -%}
+{%- if settings.enable_sticky_atc -%}
+  <div class="sticky-atc" data-sticky-atc data-visible="false">
+    <div class="page-width">
+      <div class="sticky-atc__inner">
+        <img src="{{ product.featured_media | image_url: width: 100 }}" alt="" width="48" height="48" style="border-radius:8px;width:48px;height:48px;object-fit:cover">
+        <div class="sticky-atc__info">
+          <div class="sticky-atc__title">{{ product.title }}</div>
+          <div class="sticky-atc__price" data-sticky-price>{{ current_variant.price | money }}</div>
+        </div>
+        {%- form 'product', product, class: 'product-form', data-product-form: 'true', data-sticky-form: 'true' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" class="btn btn--primary sticky-atc__btn">{{ 'products.product.add_to_cart' | t }}</button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout buttons", "default": true },
+    { "type": "checkbox", "id": "show_shipping_estimate", "label": "Show shipping estimate", "default": true },
+    { "type": "text", "id": "shipping_estimate_text", "label": "Shipping estimate text", "default": "Order today — free express delivery in 5–8 business days." },
+    { "type": "checkbox", "id": "show_bundle", "label": "Show bundle offers", "default": true },
+    { "type": "checkbox", "id": "show_fbt", "label": "Show Frequently Bought Together", "default": true },
+    { "type": "page", "id": "size_guide_page", "label": "Size guide page" }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion row",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Shipping & Returns" },
+        { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Free worldwide shipping over $120. Delivery in 5–8 business days. 30-day easy returns.</p>" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "accordion", "settings": { "title": "Shipping & Returns", "content": "<p>Free worldwide shipping over $120. Delivery in 5–8 business days. 30-day easy returns & exchanges.</p>" } },
+      { "type": "accordion", "settings": { "title": "Materials & Care", "content": "<p>100% premium breathable polyester. Machine wash cold, hang dry. Do not iron print.</p>" } },
+      { "type": "accordion", "settings": { "title": "Size & Fit", "content": "<p>True to size, athletic fit. Between sizes? Size up for a relaxed look.</p>" } }
+    ]
+  }
+}
+{% endschema %}

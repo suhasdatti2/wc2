@@ -1,0 +1,98 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Premium Football Jerseys",
+        "heading": "Represent Your Colors.",
+        "subheading": "Premium football jerseys inspired by the world's biggest matches.",
+        "button_1_label": "Shop Jerseys",
+        "button_1_link": "/collections/all",
+        "button_2_label": "Best Sellers",
+        "button_2_link": "/collections/all",
+        "enable_parallax": true,
+        "show_scroll": true
+      }
+    },
+    "featured-teams": {
+      "type": "featured-teams",
+      "blocks": {
+        "t1": { "type": "team", "settings": { "title": "Brazil", "subtitle": "Home & Away", "accent_1": "#009C3B", "accent_2": "#FFDF00", "accent_3": "#002776" } },
+        "t2": { "type": "team", "settings": { "title": "Argentina", "subtitle": "Home & Away", "accent_1": "#74ACDF", "accent_2": "#FFFFFF", "accent_3": "#74ACDF" } },
+        "t3": { "type": "team", "settings": { "title": "France", "subtitle": "Home & Away", "accent_1": "#0055A4", "accent_2": "#FFFFFF", "accent_3": "#EF4135" } },
+        "t4": { "type": "team", "settings": { "title": "Portugal", "subtitle": "Home & Away", "accent_1": "#006600", "accent_2": "#FF0000", "accent_3": "#FFD700" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": {
+        "eyebrow": "Featured Teams",
+        "heading": "Represent Your Nation",
+        "subheading": "Country-inspired collections crafted for the global game."
+      }
+    },
+    "best-sellers": {
+      "type": "best-sellers",
+      "settings": {
+        "eyebrow": "Most Wanted",
+        "heading": "Best Sellers",
+        "products_to_show": 8,
+        "button_label": "View all"
+      }
+    },
+    "why": {
+      "type": "why-novora",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "icon": "medal", "title": "Premium Materials", "text": "Breathable, match-grade fabrics built to last." } },
+        "f2": { "type": "feature", "settings": { "icon": "truck", "title": "Worldwide Shipping", "text": "Fast, tracked delivery to 100+ countries." } },
+        "f3": { "type": "feature", "settings": { "icon": "lock", "title": "Secure Checkout", "text": "256-bit encrypted, trusted payment options." } },
+        "f4": { "type": "feature", "settings": { "icon": "refresh", "title": "Easy Returns", "text": "30-day hassle-free returns and exchanges." } },
+        "f5": { "type": "feature", "settings": { "icon": "shield", "title": "Quality Guaranteed", "text": "Every kit backed by our quality promise." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5"],
+      "settings": { "eyebrow": "Why Novora", "heading": "Built For The Beautiful Game", "subheading": "Premium quality and service trusted by fans worldwide." }
+    },
+    "promo": {
+      "type": "promo-banner",
+      "settings": {
+        "eyebrow": "Limited Drop",
+        "heading": "The World Cup Collection",
+        "text": "Celebrate the world's biggest stage with our limited-edition kits. While stocks last.",
+        "show_countdown": true,
+        "button_label": "Shop The Drop",
+        "button_link": "/collections/all"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "r1": { "type": "review", "settings": { "rating": 5, "name": "James R.", "quote": "Best jersey I've ever owned. The quality is unreal and shipping was fast." } },
+        "r2": { "type": "review", "settings": { "rating": 5, "name": "Sofia M.", "quote": "Looks exactly like the photos. Premium feel, perfect fit. Buying another." } },
+        "r3": { "type": "review", "settings": { "rating": 5, "name": "Daniel K.", "quote": "Customer service was incredible and the kit arrived in 4 days. 10/10." } },
+        "r4": { "type": "review", "settings": { "rating": 5, "name": "Aisha B.", "quote": "Obsessed. The detailing is luxury level. Worth every penny." } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4"],
+      "settings": { "eyebrow": "Customer Reviews", "heading": "Loved By Fans Worldwide" }
+    },
+    "social": {
+      "type": "social-gallery",
+      "blocks": {
+        "i1": { "type": "image" }, "i2": { "type": "image" }, "i3": { "type": "image" },
+        "i4": { "type": "image" }, "i5": { "type": "image" }, "i6": { "type": "image" }
+      },
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6"],
+      "settings": { "eyebrow": "Social", "heading": "#WearNovora", "handle": "Tag us to be featured. Join the movement." }
+    },
+    "popup": {
+      "type": "popup",
+      "settings": {
+        "enable": true,
+        "delay": 6,
+        "eyebrow": "Welcome To Novora",
+        "discount": "10% OFF",
+        "heading": "Your First Order",
+        "text": "Join the club for an instant discount, early access to drops, and members-only offers.",
+        "button_label": "Claim My Discount"
+      }
+    }
+  },
+  "order": ["hero", "featured-teams", "best-sellers", "why", "promo", "testimonials", "social", "popup"]
+}

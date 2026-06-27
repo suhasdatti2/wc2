@@ -1,0 +1,44 @@
+<section class="section" style="padding-top:calc(var(--header-height) + 2rem)">
+  <div class="page-width" style="max-width:880px">
+    <div class="flex-between" style="margin-bottom:2rem">
+      <div>
+        <p class="eyebrow">{{ 'customer.account.title' | t }}</p>
+        <h1 class="h2" style="margin:0">Welcome back, {{ customer.first_name | default: 'Player' }}</h1>
+      </div>
+      <a href="{{ routes.account_logout_url }}" class="btn btn--secondary">{{ 'customer.account.log_out' | t }}</a>
+    </div>
+
+    <div class="grid-2" style="align-items:start">
+      <div>
+        <h2 class="h3">Order history</h2>
+        {%- paginate customer.orders by 10 -%}
+          {%- if customer.orders.size > 0 -%}
+            <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden">
+              {%- for order in customer.orders -%}
+                <a href="{{ order.customer_url }}" class="flex-between" style="padding:1rem 1.25rem;border-bottom:1px solid var(--color-border)">
+                  <div><strong>{{ order.name }}</strong><div class="text-muted" style="font-size:.82rem">{{ order.created_at | date: '%b %d, %Y' }}</div></div>
+                  <div style="text-align:right"><div>{{ order.total_price | money }}</div><div class="text-muted" style="font-size:.82rem">{{ order.fulfillment_status_label }}</div></div>
+                </a>
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <p class="text-muted">You haven't placed any orders yet.</p>
+            <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary mt-2">Start shopping</a>
+          {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+
+      <div>
+        <h2 class="h3">{{ 'customer.account.details' | t }}</h2>
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:1.25rem">
+          <p style="margin:0">{{ customer.name }}</p>
+          <p class="text-muted" style="margin:.25rem 0 0">{{ customer.email }}</p>
+          {%- if customer.default_address -%}
+            <p class="text-muted" style="margin:.75rem 0 0;font-size:.9rem">{{ customer.default_address | format_address }}</p>
+          {%- endif -%}
+          <a href="{{ routes.account_addresses_url }}" class="link-underline mt-2" style="display:inline-block">Manage addresses</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

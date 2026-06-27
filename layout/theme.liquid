@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" data-button-style="{{ settings.button_style }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="{{ settings.color_background }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ 'general.meta.tags' | t: tags: current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% render 'meta-tags' %}
+
+    {%- comment -%} Theme tokens injected from settings {%- endcomment -%}
+    {% style %}
+      :root {
+        --page-width: {{ settings.page_width }}px;
+        --section-spacing: {{ settings.section_spacing }}px;
+        --radius: {{ settings.corner_radius }}px;
+        --color-bg: {{ settings.color_background }};
+        --color-surface: {{ settings.color_surface }};
+        --color-text: {{ settings.color_text }};
+        --color-muted: {{ settings.color_text_muted }};
+        --color-accent: {{ settings.color_accent }};
+        --color-highlight: {{ settings.color_highlight }};
+        --color-border: {{ settings.color_border }};
+        --color-button-text: {{ settings.color_button_text }};
+        --heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
+        --body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+      }
+    {% endstyle %}
+
+    {{ settings.font_heading | font_face: font_display: 'swap' }}
+    {{ settings.font_body | font_face: font_display: 'swap' }}
+    {% style %}
+      :root {
+        --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+        --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+      }
+    {% endstyle %}
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      window.Shopify = window.Shopify || {};
+      window.Shopify.routes = window.Shopify.routes || {{ routes | json }};
+      window.Shopify.currency = {{ shop.currency | json | prepend: '{"active":' | append: '}' }};
+      window.NovoraCart = {
+        drawerEnabled: {{ settings.cart_drawer_enabled | json }},
+        freeShipThreshold: {{ settings.free_shipping_threshold | default: 0 }},
+        shopUrl: {{ routes.all_products_collection_url | json }},
+        freeShipQualified: {{ 'cart.free_shipping_qualified' | t | json }}
+      };
+    </script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ request.page_type | handle }}">
+    <a class="skip-to-content" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {%- comment -%} Global overlays {%- endcomment -%}
+    <div class="overlay" data-overlay data-active="false"></div>
+    {% render 'cart-drawer' %}
+    {% render 'mobile-menu' %}
+    {% render 'recent-purchase-toast' %}
+
+    {{ 'theme.js' | asset_url | script_tag }}
+  </body>
+</html>

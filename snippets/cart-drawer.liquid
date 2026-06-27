@@ -1,0 +1,57 @@
+{%- comment -%} Slide-out cart drawer. State rendered/refreshed by theme.js {%- endcomment -%}
+<aside id="CartDrawer" class="cart-drawer" data-panel aria-hidden="true" aria-label="{{ 'cart.title' | t }}" role="dialog">
+  <header class="cart-drawer__head">
+    <h2 class="cart-drawer__title">{{ 'cart.title' | t }}</h2>
+    <button type="button" class="cart-drawer__close" data-close aria-label="{{ 'general.accessibility.close' | t }}">
+      {% render 'icon', name: 'close' %}
+    </button>
+  </header>
+
+  <div class="cart-drawer__body" data-cart-body>
+    {%- if settings.free_shipping_bar_enabled -%}
+      <div class="ship-bar" data-shipbar>
+        <div class="ship-bar__text" data-shipbar-text></div>
+        <div class="ship-bar__track"><div class="ship-bar__fill" data-shipbar-fill></div></div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Line items injected by JS into [data-line-list] {%- endcomment -%}
+
+    {%- comment -%} Upsell recommendations {%- endcomment -%}
+    {%- assign upsell_collection = collections[settings.cart_upsell_collection] | default: collections.all -%}
+    {%- if upsell_collection.products.size > 0 -%}
+      <div class="cart-upsell">
+        <div class="cart-upsell__title">You might also like</div>
+        {%- for product in upsell_collection.products limit: 3 -%}
+          {%- assign v = product.selected_or_first_available_variant -%}
+          <div class="cart-upsell__item">
+            <img src="{{ product.featured_media | image_url: width: 112 }}" alt="{{ product.title | escape }}" width="56" height="56" loading="lazy">
+            <div>
+              <div style="font-weight:600;font-size:0.88rem">{{ product.title | truncate: 32 }}</div>
+              <div class="text-muted" style="font-size:0.82rem">{{ product.price | money }}</div>
+            </div>
+            <button type="button" class="cart-upsell__add" data-upsell-add="{{ v.id }}">Add</button>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <footer class="cart-drawer__foot" data-cart-foot hidden>
+    <form action="{{ routes.cart_url }}" method="post" class="cart-discount">
+      <input type="text" name="discount" placeholder="{{ 'cart.discount' | t }}" aria-label="{{ 'cart.discount' | t }}">
+      <button type="submit" class="btn btn--secondary">{{ 'cart.apply' | t }}</button>
+    </form>
+    <div class="cart-subtotal">
+      <span>{{ 'cart.subtotal' | t }}</span>
+      <span data-cart-subtotal></span>
+    </div>
+    <form action="{{ routes.cart_url }}" method="post">
+      <button type="submit" name="checkout" class="btn btn--primary btn--full btn--lg">{{ 'cart.checkout' | t }}</button>
+    </form>
+    {%- if additional_checkout_buttons -%}
+      <div class="cart-express">{{ content_for_additional_checkout_buttons }}</div>
+    {%- endif -%}
+    <p class="cart-taxnote">{{ 'cart.taxes_shipping' | t }}</p>
+  </footer>
+</aside>

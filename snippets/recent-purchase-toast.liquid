@@ -1,0 +1,26 @@
+{%- comment -%} Recent purchase social-proof toast. Data sourced from a collection. {%- endcomment -%}
+{%- if settings.enable_recent_purchases -%}
+  {%- assign source = collections[settings.cart_upsell_collection] | default: collections.all -%}
+  {%- assign items = '' -%}
+  <div class="purchase-toast" data-purchase-toast data-visible="false" role="status" aria-live="polite">
+    <img data-toast-img src="" alt="" width="50" height="50">
+    <div style="flex:1;min-width:0">
+      <div class="purchase-toast__name" data-toast-name>Someone</div>
+      <div class="purchase-toast__meta" data-toast-meta></div>
+      <div class="purchase-toast__time" data-toast-time></div>
+    </div>
+    <button type="button" data-toast-close aria-label="{{ 'general.accessibility.close' | t }}" style="align-self:flex-start;color:var(--color-muted)">{% render 'icon', name: 'close', width:14, height:14 %}</button>
+  </div>
+  <script type="application/json" data-purchase-data>
+    [
+      {%- assign n = 0 -%}
+      {%- for product in source.products limit: 8 -%}
+        {%- if product.featured_media -%}
+          {%- if n > 0 %},{% endif -%}
+          {"title": {{ product.title | json }}, "image": "{{ product.featured_media | image_url: width: 100 }}"}
+          {%- assign n = n | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    ]
+  </script>
+{%- endif -%}

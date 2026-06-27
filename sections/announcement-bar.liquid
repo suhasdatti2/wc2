@@ -1,0 +1,53 @@
+<div class="announcement-bar" style="background:{{ section.settings.bg_color }};color:{{ section.settings.text_color }}">
+  <div class="page-width">
+    <div class="announcement-bar__track">
+      {%- for block in section.blocks -%}
+        <span {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != 'none' -%}{% render 'icon', name: block.settings.icon, width: 15, height: 15 %}{%- endif -%}
+          {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{{ block.settings.text }}</a>{%- else -%}{{ block.settings.text }}{%- endif -%}
+        </span>
+      {%- else -%}
+        <span>{% render 'icon', name: 'truck', width: 15, height: 15 %} Free worldwide shipping over {{ settings.free_shipping_threshold | times: 100 | money_without_trailing_zeros }}</span>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Free worldwide shipping over $120" },
+        { "type": "url", "id": "link", "label": "Link" },
+        {
+          "type": "select", "id": "icon", "label": "Icon", "default": "truck",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "truck", "label": "Shipping" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "refresh", "label": "Returns" },
+            { "value": "flame", "label": "Flame" },
+            { "value": "globe", "label": "Globe" },
+            { "value": "medal", "label": "Medal" }
+          ]
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "message", "settings": { "text": "Free worldwide shipping over $120", "icon": "truck" } },
+      { "type": "message", "settings": { "text": "30-day easy returns", "icon": "refresh" } },
+      { "type": "message", "settings": { "text": "Authentic premium quality — guaranteed", "icon": "shield" } }
+    ]
+  }
+}
+{% endschema %}

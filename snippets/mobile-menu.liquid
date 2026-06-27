@@ -1,0 +1,28 @@
+{%- comment -%} Mobile navigation drawer {%- endcomment -%}
+<nav id="MobileMenu" class="mobile-drawer" data-panel aria-hidden="true" aria-label="{{ 'general.accessibility.menu' | t }}">
+  <div class="flex-between" style="margin-bottom:1.5rem">
+    <span class="site-logo">{{ settings.logo_text | default: 'NOVORA' }}</span>
+    <button type="button" class="cart-drawer__close" data-close aria-label="{{ 'general.accessibility.close' | t }}">
+      {% render 'icon', name: 'close' %}
+    </button>
+  </div>
+
+  <form action="{{ routes.search_url }}" method="get" role="search" style="margin-bottom:1.5rem;display:flex;gap:.5rem">
+    <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.search' | t }}"
+      style="flex:1;background:var(--color-bg);border:1px solid var(--color-border);color:#fff;border-radius:999px;padding:0 1rem;height:48px">
+    <button type="submit" class="header-icon" aria-label="{{ 'general.search.search' | t }}">{% render 'icon', name: 'search' %}</button>
+  </form>
+
+  <div class="mobile-drawer__links">
+    {%- assign mobile_menu = linklists[settings.main_menu] | default: linklists['main-menu'] -%}
+    {%- for link in mobile_menu.links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+  </div>
+
+  <div style="margin-top:auto;padding-top:1.5rem">
+    {%- if shop.customer_accounts_enabled -%}
+      <a href="{{ routes.account_url }}" class="btn btn--secondary btn--full mt-2">{{ 'customer.account.title' | t }}</a>
+    {%- endif -%}
+  </div>
+</nav>

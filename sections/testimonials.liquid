@@ -1,0 +1,74 @@
+<section class="section" data-section-type="testimonials">
+  <div class="page-width">
+    <div class="flex-between section-head--left" style="margin-bottom:2.5rem" data-reveal>
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="margin-bottom:.5rem">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2 style="margin:0">{{ section.settings.heading }}</h2>
+      </div>
+      <div class="slider-nav" data-slider-nav>
+        <button type="button" data-slider-prev aria-label="{{ 'general.accessibility.previous' | t }}">{% render 'icon', name: 'chevron-left' %}</button>
+        <button type="button" data-slider-next aria-label="{{ 'general.accessibility.next' | t }}">{% render 'icon', name: 'chevron-right' %}</button>
+      </div>
+    </div>
+
+    <div data-slider>
+      <div class="testi-track" data-slider-track>
+        {%- for block in section.blocks -%}
+          <article class="testi-card" data-reveal {{ block.shopify_attributes }}>
+            {% render 'rating-stars', rating: block.settings.rating %}
+            <p class="testi-card__quote">"{{ block.settings.quote }}"</p>
+            {%- if block.settings.photo != blank -%}
+              <div class="testi-card__photo"><img src="{{ block.settings.photo | image_url: width: 600 }}" alt="" loading="lazy" width="400" height="250"></div>
+            {%- endif -%}
+            <div class="testi-card__foot">
+              {%- if block.settings.avatar != blank -%}
+                <img class="testi-card__avatar" src="{{ block.settings.avatar | image_url: width: 96 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="48" height="48">
+              {%- else -%}
+                <div class="testi-card__avatar" style="background:linear-gradient(135deg,var(--color-accent),var(--color-highlight));display:grid;place-items:center;font-weight:800;color:#000">{{ block.settings.name | slice: 0 }}</div>
+              {%- endif -%}
+              <div>
+                <div class="testi-card__name">{{ block.settings.name }}</div>
+                <div class="testi-card__verified">{% render 'icon', name: 'check-circle', width: 14, height: 14 %} Verified Buyer</div>
+              </div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Customer Reviews" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loved By Fans Worldwide" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "min": 3, "max": 5, "step": 1, "label": "Rating", "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Best jersey I've ever owned. The quality is unreal and shipping was fast." },
+        { "type": "text", "id": "name", "label": "Name", "default": "James R." },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" },
+        { "type": "image_picker", "id": "photo", "label": "Customer photo" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "review", "settings": { "name": "James R.", "quote": "Best jersey I've ever owned. The quality is unreal and shipping was fast." } },
+        { "type": "review", "settings": { "name": "Sofia M.", "quote": "Looks exactly like the photos. Premium feel, perfect fit. Buying another." } },
+        { "type": "review", "settings": { "name": "Daniel K.", "quote": "Customer service was incredible and the kit arrived in 4 days. 10/10." } },
+        { "type": "review", "settings": { "name": "Aisha B.", "quote": "Obsessed. The detailing is luxury level. Worth every penny." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

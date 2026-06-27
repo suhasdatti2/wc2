@@ -1,0 +1,20 @@
+<section class="section" style="padding-top:calc(var(--header-height) + 2rem)">
+  <div class="page-width" style="max-width:440px">
+    <header class="text-center" style="margin-bottom:2rem">
+      <p class="eyebrow">{{ shop.name }}</p>
+      <h1 class="h2">Create Account</h1>
+    </header>
+    {%- form 'create_customer' -%}
+      {{ form.errors | default_errors }}
+      <div class="grid-2" style="gap:.75rem">
+        <input type="text" name="customer[first_name]" placeholder="First name" aria-label="First name" class="acct-input">
+        <input type="text" name="customer[last_name]" placeholder="Last name" aria-label="Last name" class="acct-input">
+      </div>
+      <input type="email" name="customer[email]" placeholder="Email" required aria-label="Email" class="acct-input" style="margin-top:.75rem">
+      <input type="password" name="customer[password]" placeholder="Password" required aria-label="Password" class="acct-input" style="margin-top:.75rem">
+      <button type="submit" class="btn btn--primary btn--full mt-2">Create account</button>
+    {%- endform -%}
+    <p class="text-center text-muted mt-3" style="font-size:.9rem">Already have an account? <a href="{{ routes.account_login_url }}" class="link-underline">Sign in</a></p>
+  </div>
+</section>
+{% style %}.acct-input{width:100%;background:var(--color-surface);border:1px solid var(--color-border);color:#fff;border-radius:var(--radius);padding:.9rem 1.1rem}.acct-input:focus{outline:none;border-color:var(--color-accent)}{% endstyle %}

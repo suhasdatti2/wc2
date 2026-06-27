@@ -1,0 +1,106 @@
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">{{ settings.logo_text | default: 'NOVORA' }}</div>
+        <p>{{ section.settings.footer_text | default: settings.brand_tagline }}</p>
+        <div class="footer-social">
+          {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" aria-label="Instagram" target="_blank" rel="noopener">{% render 'icon', name: 'instagram' %}</a>{%- endif -%}
+          {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" aria-label="TikTok" target="_blank" rel="noopener">{% render 'icon', name: 'tiktok' %}</a>{%- endif -%}
+          {%- if settings.social_twitter != blank -%}<a href="{{ settings.social_twitter }}" aria-label="X" target="_blank" rel="noopener">{% render 'icon', name: 'twitter' %}</a>{%- endif -%}
+          {%- if settings.social_youtube != blank -%}<a href="{{ settings.social_youtube }}" aria-label="YouTube" target="_blank" rel="noopener">{% render 'icon', name: 'youtube' %}</a>{%- endif -%}
+          {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" aria-label="Facebook" target="_blank" rel="noopener">{% render 'icon', name: 'facebook' %}</a>{%- endif -%}
+        </div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'menu' -%}
+            <div class="footer-col" {{ block.shopify_attributes }}>
+              <div class="footer-col__title">{{ block.settings.title }}</div>
+              {%- assign fmenu = linklists[block.settings.menu] -%}
+              {%- for link in fmenu.links -%}
+                <a href="{{ link.url }}">{{ link.title }}</a>
+              {%- endfor -%}
+            </div>
+          {%- when 'newsletter' -%}
+            <div class="footer-col" {{ block.shopify_attributes }}>
+              <div class="footer-col__title">{{ block.settings.title }}</div>
+              <p class="text-muted" style="font-size:.88rem;margin-bottom:1rem">{{ block.settings.text }}</p>
+              {%- form 'customer', class: 'footer-newsletter' -%}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <div style="display:flex;gap:.5rem">
+                  <input type="email" name="contact[email]" placeholder="{{ 'general.newsletter.placeholder' | t }}" required
+                    style="flex:1;background:var(--color-bg);border:1px solid var(--color-border);color:#fff;border-radius:999px;padding:0 1rem;height:48px" aria-label="Email">
+                  <button type="submit" class="header-icon" style="background:var(--color-accent);color:#000" aria-label="Subscribe">{% render 'icon', name: 'arrow-right' %}</button>
+                </div>
+                {%- if form.posted_successfully? -%}<p class="text-muted mt-1" style="font-size:.82rem;color:var(--color-highlight)">{{ 'general.newsletter.success' | t }}</p>{%- endif -%}
+              {%- endform -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_note }}</div>
+      <div class="footer-selectors">
+        {%- if section.settings.show_locale_selector and localization.available_languages.size > 1 -%}
+          {%- form 'localization', id: 'FooterLang', class: 'footer-localization' -%}
+            <select name="locale_code" onchange="this.form.submit()" aria-label="Language">
+              {%- for lang in localization.available_languages -%}
+                <option value="{{ lang.iso_code }}" {% if lang.iso_code == localization.language.iso_code %}selected{% endif %}>{{ lang.endonym_name | capitalize }}</option>
+              {%- endfor -%}
+            </select>
+          {%- endform -%}
+        {%- endif -%}
+        {%- if section.settings.show_currency_selector and localization.available_countries.size > 1 -%}
+          {%- form 'localization', id: 'FooterCurrency', class: 'footer-localization' -%}
+            <select name="country_code" onchange="this.form.submit()" aria-label="Country / currency">
+              {%- for country in localization.available_countries -%}
+                <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</option>
+              {%- endfor -%}
+            </select>
+          {%- endform -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "footer_text", "label": "Brand blurb" },
+    { "type": "text", "id": "copyright_note", "label": "Copyright note", "default": "All rights reserved." },
+    { "type": "checkbox", "id": "show_currency_selector", "label": "Show currency selector", "default": true },
+    { "type": "checkbox", "id": "show_locale_selector", "label": "Show language selector", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Join the club" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Get exclusive drops and 10% off your first order." }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "menu", "settings": { "title": "Shop" } },
+      { "type": "menu", "settings": { "title": "Help" } },
+      { "type": "newsletter" }
+    ]
+  }
+}
+{% endschema %}

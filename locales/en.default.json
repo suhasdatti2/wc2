@@ -1,0 +1,104 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "menu": "Menu",
+      "previous": "Previous",
+      "next": "Next",
+      "loading": "Loading"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search for jerseys, teams, collections...",
+      "no_results": "No results found for \"{{ terms }}\"",
+      "results_for": "Results for \"{{ terms }}\""
+    },
+    "newsletter": {
+      "label": "Email",
+      "placeholder": "Enter your email",
+      "button": "Subscribe",
+      "success": "Thanks for subscribing. Your discount code is on its way."
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{ number }}"
+    },
+    "social": {
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "twitter": "X",
+      "youtube": "YouTube",
+      "facebook": "Facebook"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "quick_add": "Quick add",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "on_sale": "Sale",
+      "from_price": "From {{ price }}",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "quantity": "Quantity",
+      "size": "Size",
+      "size_guide": "Size guide",
+      "low_stock": "Only {{ count }} left in stock",
+      "in_stock": "In stock",
+      "view_full_details": "View full details",
+      "wishlist": "Add to wishlist",
+      "share": "Share"
+    }
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty",
+    "empty_cta": "Continue shopping",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "note": "Order note",
+    "discount": "Discount code",
+    "apply": "Apply",
+    "taxes_shipping": "Taxes and shipping calculated at checkout",
+    "free_shipping_qualified": "Congrats! You've unlocked free shipping.",
+    "free_shipping_remaining": "You're {{ amount }} away from free shipping",
+    "items_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    }
+  },
+  "templates": {
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you're looking for doesn't exist.",
+      "cta": "Back to home"
+    },
+    "search": {
+      "title": "Search"
+    },
+    "contact": {
+      "title": "Contact us"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "My account",
+      "details": "Account details",
+      "log_out": "Log out"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in"
+    }
+  }
+}

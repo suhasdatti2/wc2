@@ -1,0 +1,24 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "newsletter-cta": {
+      "type": "newsletter",
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop": { "type": "menu", "settings": { "title": "Shop", "menu": "footer" } },
+        "help": { "type": "menu", "settings": { "title": "Help", "menu": "footer" } },
+        "news": { "type": "newsletter", "settings": { "title": "Join the club", "text": "Get exclusive drops and 10% off your first order." } }
+      },
+      "block_order": ["shop", "help", "news"],
+      "settings": {
+        "show_currency_selector": true,
+        "show_locale_selector": true
+      }
+    }
+  },
+  "order": ["newsletter-cta", "footer"]
+}

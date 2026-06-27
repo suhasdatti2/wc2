@@ -1,0 +1,40 @@
+{%- comment -%} Open Graph + Twitter card meta {%- endcomment -%}
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="{{ page_title | escape }}">
+<meta property="og:type" content="{% if request.page_type == 'product' %}product{% elsif request.page_type == 'article' %}article{% else %}website{% endif %}">
+{%- if page_description %}<meta property="og:description" content="{{ page_description | escape }}">{% endif -%}
+{%- if request.page_type == 'product' and product -%}
+  {%- assign og_image = product.featured_media | default: page_image -%}
+{%- elsif request.page_type == 'article' and article.image -%}
+  {%- assign og_image = article.image -%}
+{%- else -%}
+  {%- assign og_image = page_image -%}
+{%- endif -%}
+{%- if og_image -%}
+  <meta property="og:image" content="https:{{ og_image | image_url: width: 1200 }}">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:card" content="summary_large_image">
+{%- endif -%}
+<meta name="twitter:title" content="{{ page_title | escape }}">
+{%- if page_description %}<meta name="twitter:description" content="{{ page_description | escape }}">{% endif -%}
+
+{%- if request.page_type == 'product' and product -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "description": {{ product.description | strip_html | truncate: 300 | json }},
+    "brand": { "@type": "Brand", "name": "Novora" },
+    {%- if product.featured_media %}"image": "https:{{ product.featured_media | image_url: width: 1200 }}",{% endif %}
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "price": "{{ product.price | divided_by: 100.0 }}",
+      "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+      "url": "{{ shop.url }}{{ product.url }}"
+    }
+  }
+  </script>
+{%- endif -%}

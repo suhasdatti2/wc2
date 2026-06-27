@@ -1,0 +1,109 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu] | default: linklists[settings.main_menu] | default: linklists['main-menu']
+  assign transparent = false
+  if section.settings.transparent_on_home and template.name == 'index'
+    assign transparent = true
+  endif
+-%}
+<div class="header-wrap" data-header data-scrolled="false" data-transparent="{{ transparent }}">
+  <header class="site-header">
+    <div class="page-width">
+      <div class="site-header__inner">
+        <button type="button" class="header-icon nav-toggle" data-open="MobileMenu" aria-label="{{ 'general.accessibility.menu' | t }}">
+          {% render 'icon', name: 'menu' %}
+        </button>
+
+        <a href="{{ routes.root_url }}" class="site-logo">
+          {%- if settings.logo != blank -%}
+            <img src="{{ settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" width="120" height="38" loading="eager">
+          {%- else -%}
+            {{ settings.logo_text | default: 'NOVORA' }}
+          {%- endif -%}
+        </a>
+
+        <nav class="header-nav" aria-label="{{ 'general.accessibility.menu' | t }}">
+          {%- for link in menu.links -%}
+            <div class="header-nav__item {% if link.links != blank %}header-nav__item--has-mega{% endif %}">
+              <a href="{{ link.url }}" class="header-nav__link">
+                {{ link.title }}
+                {%- if link.links != blank %}{% render 'icon', name: 'chevron-down', width: 16, height: 16 %}{% endif -%}
+              </a>
+              {%- if link.links != blank -%}
+                <div class="mega-menu">
+                  {%- for child in link.links limit: 3 -%}
+                    <div class="mega-menu__col">
+                      <div class="mega-menu__col-title">{{ child.title }}</div>
+                      {%- for grandchild in child.links -%}
+                        <a href="{{ grandchild.url }}" class="mega-menu__link">{{ grandchild.title }}</a>
+                      {%- else -%}
+                        <a href="{{ child.url }}" class="mega-menu__link">Shop {{ child.title }}</a>
+                      {%- endfor -%}
+                    </div>
+                  {%- endfor -%}
+                  {%- if section.settings.mega_image != blank -%}
+                    <a href="{{ link.url }}" class="mega-menu__feature">
+                      <img src="{{ section.settings.mega_image | image_url: width: 500 }}" alt="" loading="lazy" width="320" height="220">
+                      <div class="mega-menu__feature-body">
+                        <strong>{{ section.settings.mega_title | default: 'New Arrivals' }}</strong>
+                        <div class="text-muted" style="font-size:.85rem">{{ section.settings.mega_subtitle | default: 'Shop the latest drop' }}</div>
+                      </div>
+                    </a>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </nav>
+
+        <div class="header-actions">
+          <button type="button" class="header-icon" data-open="SearchModal" aria-label="{{ 'general.search.search' | t }}">
+            {% render 'icon', name: 'search' %}
+          </button>
+          <a href="{{ routes.all_products_collection_url }}" class="header-icon" data-wishlist-link aria-label="{{ 'products.product.wishlist' | t }}" style="position:relative">
+            {% render 'icon', name: 'heart' %}
+            <span class="header-icon__count" data-wishlist-count hidden>0</span>
+          </a>
+          {%- if shop.customer_accounts_enabled -%}
+            <a href="{{ routes.account_url }}" class="header-icon" aria-label="{{ 'customer.account.title' | t }}">
+              {% render 'icon', name: 'user' %}
+            </a>
+          {%- endif -%}
+          <button type="button" class="header-icon" data-open="CartDrawer" aria-label="{{ 'cart.title' | t }}">
+            {% render 'icon', name: 'cart' %}
+            <span class="header-icon__count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+
+{%- comment -%} Search modal {%- endcomment -%}
+<div id="SearchModal" class="modal" data-panel aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__dialog" style="width:min(640px,100%);align-self:flex-start;margin-top:12vh">
+    <div class="modal__body" style="text-align:left;padding:1.5rem">
+      <form action="{{ routes.search_url }}" method="get" role="search" style="display:flex;gap:.6rem">
+        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off"
+          style="flex:1;background:var(--color-bg);border:1px solid var(--color-border);color:#fff;border-radius:999px;padding:0 1.2rem;height:54px" aria-label="{{ 'general.search.search' | t }}">
+        <input type="hidden" name="type" value="product">
+        <button type="submit" class="btn btn--primary">{{ 'general.search.search' | t }}</button>
+      </form>
+      <div class="text-muted mt-2" style="font-size:.82rem">Popular: National Teams · Home Kits · Away Kits · Retro</div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "transparent_on_home", "label": "Transparent over homepage hero", "default": true },
+    { "type": "header", "content": "Mega menu feature" },
+    { "type": "image_picker", "id": "mega_image", "label": "Feature image" },
+    { "type": "text", "id": "mega_title", "label": "Feature title", "default": "New Arrivals" },
+    { "type": "text", "id": "mega_subtitle", "label": "Feature subtitle", "default": "Shop the latest drop" }
+  ]
+}
+{% endschema %}

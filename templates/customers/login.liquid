@@ -1,0 +1,33 @@
+<section class="section" style="padding-top:calc(var(--header-height) + 2rem)">
+  <div class="page-width" style="max-width:440px">
+    <header class="text-center" style="margin-bottom:2rem">
+      <p class="eyebrow">{{ shop.name }}</p>
+      <h1 class="h2">{{ 'customer.login.title' | t }}</h1>
+    </header>
+
+    <div id="RecoverPassword" style="display:none">
+      <h2 class="h3 text-center">Reset your password</h2>
+      <p class="text-muted text-center" style="font-size:.9rem">We'll send you a reset link.</p>
+      {%- form 'recover_customer_password' -%}
+        {%- if form.posted_successfully? -%}<p style="color:var(--color-highlight)">We've sent you an email with a link.</p>{%- endif -%}
+        <input type="email" name="email" placeholder="Email" required aria-label="Email" class="acct-input">
+        <button type="submit" class="btn btn--primary btn--full mt-2">Send reset link</button>
+        <button type="button" class="link-underline text-muted mt-2" onclick="document.getElementById('RecoverPassword').style.display='none';document.getElementById('LoginForm').style.display='block'" style="display:block;margin-inline:auto">Back to login</button>
+      {%- endform -%}
+    </div>
+
+    <div id="LoginForm">
+      {%- form 'customer_login' -%}
+        {{ form.errors | default_errors }}
+        <input type="email" name="customer[email]" placeholder="Email" required aria-label="Email" class="acct-input">
+        <input type="password" name="customer[password]" placeholder="Password" aria-label="Password" class="acct-input" style="margin-top:.75rem">
+        <button type="submit" class="btn btn--primary btn--full mt-2">{{ 'customer.login.submit' | t }}</button>
+        <button type="button" class="link-underline text-muted mt-2" onclick="document.getElementById('LoginForm').style.display='none';document.getElementById('RecoverPassword').style.display='block'" style="display:block;margin-inline:auto">Forgot your password?</button>
+      {%- endform -%}
+      {%- if shop.customer_accounts_enabled -%}
+        <p class="text-center text-muted mt-3" style="font-size:.9rem">New here? <a href="{{ routes.account_register_url }}" class="link-underline">Create an account</a></p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% style %}.acct-input{width:100%;background:var(--color-surface);border:1px solid var(--color-border);color:#fff;border-radius:var(--radius);padding:.9rem 1.1rem}.acct-input:focus{outline:none;border-color:var(--color-accent)}{% endstyle %}

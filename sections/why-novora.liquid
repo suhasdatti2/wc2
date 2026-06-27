@@ -1,0 +1,65 @@
+<section class="section" data-section-type="why">
+  <div class="page-width">
+    <div class="section-head" data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p>{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+
+    <div class="feature-grid">
+      {%- for block in section.blocks -%}
+        <div class="feature-card" data-reveal {{ block.shopify_attributes }}>
+          <div class="feature-card__icon">{% render 'icon', name: block.settings.icon, width: 30, height: 30 %}</div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why Novora",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Novora" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built For The Beautiful Game" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Premium quality and service trusted by fans worldwide." }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icon", "default": "medal",
+          "options": [
+            { "value": "medal", "label": "Medal" },
+            { "value": "truck", "label": "Shipping" },
+            { "value": "lock", "label": "Secure" },
+            { "value": "refresh", "label": "Returns" },
+            { "value": "shield", "label": "Guarantee" },
+            { "value": "globe", "label": "Global" },
+            { "value": "flame", "label": "Flame" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Premium Materials" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Breathable, match-grade fabrics built to last." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Novora",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "medal", "title": "Premium Materials", "text": "Breathable, match-grade fabrics built to last." } },
+        { "type": "feature", "settings": { "icon": "truck", "title": "Worldwide Shipping", "text": "Fast, tracked delivery to 100+ countries." } },
+        { "type": "feature", "settings": { "icon": "lock", "title": "Secure Checkout", "text": "256-bit encrypted, trusted payment options." } },
+        { "type": "feature", "settings": { "icon": "refresh", "title": "Easy Returns", "text": "30-day hassle-free returns and exchanges." } },
+        { "type": "feature", "settings": { "icon": "shield", "title": "Quality Guaranteed", "text": "Every kit backed by our quality promise." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

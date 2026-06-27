@@ -1,0 +1,40 @@
+{%- if section.settings.enable -%}
+  <div class="modal" data-popup data-popup-delay="{{ section.settings.delay }}" aria-hidden="true">
+    <div class="modal__backdrop" data-popup-close></div>
+    <div class="modal__dialog">
+      <button type="button" class="modal__close" data-popup-close aria-label="{{ 'general.accessibility.close' | t }}">{% render 'icon', name: 'close', width:18, height:18 %}</button>
+      {%- if section.settings.image != blank -%}
+        <div class="modal__media"><img src="{{ section.settings.image | image_url: width: 900 }}" alt="" width="480" height="270" loading="lazy"></div>
+      {%- endif -%}
+      <div class="modal__body">
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+        <div class="modal__discount">{{ section.settings.discount }}</div>
+        <h3 style="margin:.4rem 0 .6rem">{{ section.settings.heading }}</h3>
+        <p class="text-muted">{{ section.settings.text }}</p>
+        {%- form 'customer', class: 'newsletter__form', style: 'margin-top:1.2rem' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,popup">
+          <input type="email" name="contact[email]" placeholder="{{ 'general.newsletter.placeholder' | t }}" required aria-label="Email">
+          <button type="submit" class="btn btn--primary">{{ section.settings.button_label }}</button>
+          {%- if form.posted_successfully? -%}<p class="newsletter__note" style="color:var(--color-highlight)">{{ 'general.newsletter.success' | t }}</p>{%- endif -%}
+        {%- endform -%}
+        <button type="button" class="link-underline text-muted mt-2" data-popup-close style="font-size:.82rem;background:none">No thanks, I'll pay full price</button>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Discount popup",
+  "settings": [
+    { "type": "checkbox", "id": "enable", "label": "Enable popup", "default": true },
+    { "type": "range", "id": "delay", "min": 2, "max": 20, "step": 1, "unit": "s", "label": "Delay before showing", "default": 6 },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Welcome To Novora" },
+    { "type": "text", "id": "discount", "label": "Discount headline", "default": "10% OFF" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your First Order" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Join the club for an instant discount, early access to drops, and members-only offers." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Claim My Discount" }
+  ]
+}
+{% endschema %}

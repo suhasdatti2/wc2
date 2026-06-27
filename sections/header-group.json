@@ -1,0 +1,25 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "msg-1": { "type": "message", "settings": { "text": "Free worldwide shipping over $120", "icon": "truck" } },
+        "msg-2": { "type": "message", "settings": { "text": "30-day easy returns", "icon": "refresh" } },
+        "msg-3": { "type": "message", "settings": { "text": "Authentic premium quality — guaranteed", "icon": "shield" } }
+      },
+      "block_order": ["msg-1", "msg-2", "msg-3"]
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "transparent_on_home": true,
+        "mega_title": "New Arrivals",
+        "mega_subtitle": "Shop the latest drop"
+      }
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}

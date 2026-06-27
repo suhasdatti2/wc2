@@ -1,0 +1,61 @@
+{%- liquid
+  assign products = collections[section.settings.collection].products
+  assign limit = section.settings.products_to_show
+-%}
+<section class="section" data-section-type="best-sellers">
+  <div class="page-width">
+    <div class="flex-between section-head--left" style="margin-bottom:2.5rem" data-reveal>
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="margin-bottom:.5rem">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2 style="margin:0">{{ section.settings.heading }}</h2>
+      </div>
+      <div class="slider-nav" data-slider-nav>
+        <button type="button" data-slider-prev aria-label="{{ 'general.accessibility.previous' | t }}">{% render 'icon', name: 'chevron-left' %}</button>
+        <button type="button" data-slider-next aria-label="{{ 'general.accessibility.next' | t }}">{% render 'icon', name: 'chevron-right' %}</button>
+      </div>
+    </div>
+
+    <div class="product-slider" data-slider>
+      <div class="product-track" data-slider-track>
+        {%- if products.size > 0 -%}
+          {%- for product in products limit: limit -%}
+            {% render 'product-card', product: product, show_team: true %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..6) -%}
+            <article class="product-card">
+              <div class="product-card__media">{{ 'product-1' | placeholder_svg_tag: 'product-card__img' }}</div>
+              <div class="product-card__body">
+                <div class="product-card__team">Team Name</div>
+                <h3 class="product-card__title">Example Jersey 2024/25</h3>
+                <div class="product-card__meta"><span class="price">$89.00</span></div>
+              </div>
+            </article>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="text-center mt-4" data-reveal>
+        <a href="{{ section.settings.button_link | default: collections[section.settings.collection].url }}" class="btn btn--secondary">{{ section.settings.button_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Best sellers",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Most Wanted" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Best Sellers" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "min": 4, "max": 16, "step": 1, "label": "Products to show", "default": 8 },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "View all" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Best sellers" }]
+}
+{% endschema %}

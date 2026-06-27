@@ -1,0 +1,59 @@
+{%- comment -%}
+  Premium product card.
+  Usage: {% render 'product-card', product: product, show_team: true %}
+{%- endcomment -%}
+{%- liquid
+  assign second_image = product.media[1] | default: product.featured_media
+  assign team = product.metafields.custom.team | default: product.vendor
+  assign first_variant = product.selected_or_first_available_variant
+-%}
+<article class="product-card" data-reveal>
+  <a href="{{ product.url }}" class="product-card__media" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_media -%}
+      <img
+        class="product-card__img product-card__img--one media-fade {% unless second_image and second_image != product.featured_media %}is-solo{% endunless %}"
+        src="{{ product.featured_media | image_url: width: 600 }}"
+        srcset="{{ product.featured_media | image_url: width: 300 }} 300w, {{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w"
+        sizes="(max-width: 749px) 50vw, 25vw"
+        alt="{{ product.featured_media.alt | escape | default: product.title }}"
+        width="600" height="750" loading="lazy">
+      {%- if second_image and second_image != product.featured_media -%}
+        <img class="product-card__img product-card__img--two" src="{{ second_image | image_url: width: 600 }}" alt="" width="600" height="750" loading="lazy">
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'product-card__img' }}
+    {%- endif -%}
+
+    <div class="product-card__badges">
+      {%- if product.compare_at_price > product.price -%}
+        {%- assign saved = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+        <span class="badge badge--sale">Save {{ saved }}%</span>
+      {%- endif -%}
+      {%- unless product.available -%}<span class="badge badge--soldout">Sold out</span>{%- endunless -%}
+      {%- if product.tags contains 'new' -%}<span class="badge badge--new">New</span>{%- endif -%}
+    </div>
+
+    <button type="button" class="product-card__wishlist" data-wishlist="{{ product.id }}" aria-label="{{ 'products.product.wishlist' | t }}">
+      {% render 'icon', name: 'heart' %}
+    </button>
+
+    {%- if product.available -%}
+      <div class="product-card__quickadd">
+        {%- if product.variants.size == 1 -%}
+          <button type="button" class="btn btn--primary btn--full" data-quick-add="{{ first_variant.id }}">{{ 'products.product.quick_add' | t }}</button>
+        {%- else -%}
+          <a href="{{ product.url }}" class="btn btn--primary btn--full">{{ 'products.product.quick_add' | t }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </a>
+
+  <div class="product-card__body">
+    {%- if show_team and team != blank -%}<div class="product-card__team">{{ team }}</div>{%- endif -%}
+    <h3 class="product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <div class="product-card__meta">
+      {% render 'price', product: product %}
+      {% render 'rating-stars', product: product %}
+    </div>
+  </div>
+</article>

@@ -1,0 +1,40 @@
+<section class="section" data-section-type="rich-text">
+  <div class="page-width" style="max-width:760px;text-align:{{ section.settings.alignment }}">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'eyebrow' -%}<p class="eyebrow" data-reveal {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+        {%- when 'heading' -%}<h2 class="{{ block.settings.size }}" data-reveal {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>
+        {%- when 'text' -%}<div class="rte text-muted" data-reveal {{ block.shopify_attributes }} style="font-size:1.1rem">{{ block.settings.text }}</div>
+        {%- when 'button' -%}<div class="mt-3" data-reveal {{ block.shopify_attributes }}><a href="{{ block.settings.link }}" class="btn btn--primary btn--lg">{{ block.settings.label }}</a></div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rich text",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select", "id": "alignment", "label": "Alignment", "default": "center",
+      "options": [ { "value": "left", "label": "Left" }, { "value": "center", "label": "Center" } ]
+    }
+  ],
+  "blocks": [
+    { "type": "eyebrow", "name": "Eyebrow", "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "Our Story" } ] },
+    {
+      "type": "heading", "name": "Heading",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Crafted For Those Who Live The Game" },
+        { "type": "select", "id": "size", "label": "Size", "default": "h2", "options": [ { "value": "h1", "label": "Large" }, { "value": "h2", "label": "Medium" }, { "value": "h3", "label": "Small" } ] }
+      ]
+    },
+    { "type": "text", "name": "Text", "settings": [ { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Novora is built for fans who treat football like art. Premium materials, considered design, global delivery.</p>" } ] },
+    { "type": "button", "name": "Button", "settings": [ { "type": "text", "id": "label", "label": "Label", "default": "Shop Now" }, { "type": "url", "id": "link", "label": "Link" } ] }
+  ],
+  "presets": [
+    { "name": "Rich text", "blocks": [ { "type": "eyebrow" }, { "type": "heading" }, { "type": "text" }, { "type": "button" } ] }
+  ]
+}
+{% endschema %}

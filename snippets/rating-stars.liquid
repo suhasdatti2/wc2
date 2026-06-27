@@ -1,0 +1,35 @@
+{%- comment -%}
+  Renders 5 star rating.
+  Usage: {% render 'rating-stars', rating: 4.5, count: 128 %}
+  If rating not supplied, falls back to a deterministic value from product id.
+{%- endcomment -%}
+{%- liquid
+  assign r = rating | default: 0
+  if r == 0 and product
+    assign seed = product.id | modulo: 10
+    assign r = 4.5
+    if seed > 6
+      assign r = 5.0
+    elsif seed < 2
+      assign r = 4.0
+    endif
+  endif
+  assign full = r | floor
+  assign has_half = false
+  assign frac = r | minus: full
+  if frac >= 0.5
+    assign has_half = true
+  endif
+-%}
+<span class="stars" role="img" aria-label="{{ r }} out of 5 stars">
+  {%- for i in (1..5) -%}
+    {%- if i <= full -%}
+      {% render 'icon', name: 'star' %}
+    {%- elsif has_half and i == full | plus: 1 -%}
+      {% render 'icon', name: 'star' %}
+    {%- else -%}
+      <span class="star--empty">{% render 'icon', name: 'star' %}</span>
+    {%- endif -%}
+  {%- endfor -%}
+</span>
+{%- if count -%}<span class="stars-count text-muted" style="font-size:0.82rem">({{ count }})</span>{%- endif -%}
