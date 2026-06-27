@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#15151a"/><stop offset="1" stop-color="#0a0a0d"/>
+    </linearGradient>
+    <linearGradient id="j" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3556b3"/><stop offset="1" stop-color="#16224d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.32" r="0.6">
+      <stop offset="0" stop-color="#D4AF37" stop-opacity="0.18"/><stop offset="1" stop-color="#D4AF37" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="bodyclip"><path d="M140,118 L108,150 L66,162 L94,232 L124,214 L124,452 C178,470 222,470 276,452 L276,214 L306,232 L334,162 L292,150 L260,118 C238,150 162,150 140,118 Z"/></clipPath>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <rect width="400" height="500" fill="url(#glow)"/>
+  <path d="M140,118 L108,150 L66,162 L94,232 L124,214 L124,452 C178,470 222,470 276,452 L276,214 L306,232 L334,162 L292,150 L260,118 C238,150 162,150 140,118 Z" fill="url(#j)"/>
+  <g clip-path="url(#bodyclip)">
+    <rect x="186" y="0" width="28" height="500" fill="#ffffff" opacity="0.12"/>
+    <rect x="120" y="300" width="200" height="3" fill="#ffffff" opacity="0.18"/>
+  </g>
+  <path d="M168,128 q32,26 64,0" fill="none" stroke="#ffffff" stroke-width="6" opacity="0.65"/>
+  <text x="200" y="320" font-family="Arial Black, Arial, sans-serif" font-size="120" font-weight="900"
+        fill="#ffffff" opacity="0.92" text-anchor="middle">7</text>
+  <text x="200" y="478" font-family="Arial, sans-serif" font-size="22" font-weight="700"
+        fill="#ffffff" opacity="0.55" letter-spacing="3" text-anchor="middle">FRANCE</text>
+</svg>

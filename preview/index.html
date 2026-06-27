@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en" data-button-style="pill">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Novora — Represent Your Colors.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <style>
+    :root{
+      --page-width:1400px; --section-spacing:96px; --radius:8px;
+      --color-bg:#0A0A0A; --color-surface:#141414; --color-text:#FFFFFF; --color-muted:#A1A1A1;
+      --color-accent:#D4AF37; --color-highlight:#00C2FF; --color-border:#262626; --color-button-text:#0A0A0A;
+      --heading-scale:1.1; --body-scale:1;
+      --font-heading:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      --font-body:'Assistant',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    }
+    .preview-ribbon{position:fixed;bottom:12px;left:12px;z-index:120;background:rgba(20,20,20,.85);backdrop-filter:blur(8px);
+      border:1px solid var(--color-border);border-radius:999px;padding:.45rem .9rem;font-size:.72rem;letter-spacing:.12em;
+      text-transform:uppercase;color:var(--color-muted)}
+    .preview-ribbon b{color:var(--color-accent)}
+  </style>
+</head>
+<body class="template-index">
+<a class="skip-to-content" href="#MainContent">Skip to content</a>
+
+<!-- HEADER GROUP -->
+<div class="announcement-bar">
+  <div class="page-width"><div class="announcement-bar__track">
+    <span>★ Free worldwide shipping over $120</span>
+    <span>30-day easy returns</span>
+    <span>Authentic premium quality — guaranteed</span>
+  </div></div>
+</div>
+
+<div class="header-wrap" data-header data-scrolled="false" data-transparent="true">
+  <header class="site-header"><div class="page-width"><div class="site-header__inner">
+    <button class="header-icon nav-toggle" data-open="MobileMenu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a href="index.html" class="site-logo">NOVORA</a>
+    <nav class="header-nav" aria-label="Menu">
+      <div class="header-nav__item"><a href="product.html" class="header-nav__link">Shop</a></div>
+      <div class="header-nav__item header-nav__item--has-mega">
+        <a href="#teams" class="header-nav__link">Teams
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="mega-menu">
+          <div class="mega-menu__col"><div class="mega-menu__col-title">National Teams</div>
+            <a class="mega-menu__link" href="product.html">Brazil</a><a class="mega-menu__link" href="product.html">Argentina</a>
+            <a class="mega-menu__link" href="product.html">France</a><a class="mega-menu__link" href="product.html">Portugal</a></div>
+          <div class="mega-menu__col"><div class="mega-menu__col-title">Kits</div>
+            <a class="mega-menu__link" href="product.html">Home Kits</a><a class="mega-menu__link" href="product.html">Away Kits</a>
+            <a class="mega-menu__link" href="product.html">Retro</a><a class="mega-menu__link" href="product.html">Training</a></div>
+          <div class="mega-menu__col"><div class="mega-menu__col-title">Shop</div>
+            <a class="mega-menu__link" href="product.html">New Arrivals</a><a class="mega-menu__link" href="product.html">Best Sellers</a>
+            <a class="mega-menu__link" href="product.html">Sale</a></div>
+          <a href="product.html" class="mega-menu__feature">
+            <img src="img/promo.svg" alt="">
+            <div class="mega-menu__feature-body"><strong>New Arrivals</strong>
+              <div class="text-muted" style="font-size:.85rem">Shop the latest drop</div></div>
+          </a>
+        </div>
+      </div>
+      <div class="header-nav__item"><a href="#sellers" class="header-nav__link">Best Sellers</a></div>
+      <div class="header-nav__item"><a href="#social" class="header-nav__link">Journal</a></div>
+    </nav>
+    <div class="header-actions">
+      <button class="header-icon" data-open="SearchModal" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <a href="#" class="header-icon" style="position:relative" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        <span class="header-icon__count" data-wishlist-count hidden>0</span>
+      </a>
+      <a href="#" class="header-icon" aria-label="Account">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <button class="header-icon" data-open="CartDrawer" aria-label="Cart">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="header-icon__count" data-cart-count hidden>0</span>
+      </button>
+    </div>
+  </div></div></header>
+</div>
+
+<main id="MainContent">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__media" data-parallax><img src="img/hero.svg" alt="Novora football atmosphere" fetchpriority="high"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content page-width">
+      <p class="eyebrow hero__eyebrow hero-anim hero-anim--1">Premium Football Jerseys</p>
+      <h1 class="hero__title h1 hero-anim hero-anim--2">Represent Your Colors.</h1>
+      <p class="hero__subtitle hero-anim hero-anim--3">Premium football jerseys inspired by the world's biggest matches.</p>
+      <div class="hero__actions hero-anim hero-anim--4">
+        <a href="#sellers" class="btn btn--primary btn--lg">Shop Jerseys</a>
+        <a href="#sellers" class="btn btn--secondary btn--lg">Best Sellers</a>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true"><span>Scroll</span><span class="hero__scroll-line"></span></div>
+  </section>
+
+  <!-- FEATURED TEAMS -->
+  <section class="section" id="teams"><div class="page-width">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Featured Teams</p><h2>Represent Your Nation</h2>
+      <p>Country-inspired collections crafted for the global game.</p>
+    </div>
+    <div class="team-grid">
+      <a href="product.html" class="team-card" data-reveal>
+        <span class="team-card__accent" style="background:linear-gradient(90deg,#009C3B 0 33%,#FFDF00 33% 66%,#002776 66% 100%)"></span>
+        <img class="team-card__img media-fade" src="img/team-brazil.svg" alt="Brazil">
+        <span class="team-card__overlay"></span>
+        <div class="team-card__body"><div class="team-card__name">Brazil</div><div class="team-card__count">12 products</div>
+          <span class="team-card__cta">Shop Now <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a href="product.html" class="team-card" data-reveal>
+        <span class="team-card__accent" style="background:linear-gradient(90deg,#74ACDF 0 33%,#FFFFFF 33% 66%,#74ACDF 66% 100%)"></span>
+        <img class="team-card__img media-fade" src="img/team-argentina.svg" alt="Argentina">
+        <span class="team-card__overlay"></span>
+        <div class="team-card__body"><div class="team-card__name">Argentina</div><div class="team-card__count">10 products</div>
+          <span class="team-card__cta">Shop Now <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a href="product.html" class="team-card" data-reveal>
+        <span class="team-card__accent" style="background:linear-gradient(90deg,#0055A4 0 33%,#FFFFFF 33% 66%,#EF4135 66% 100%)"></span>
+        <img class="team-card__img media-fade" src="img/team-france.svg" alt="France">
+        <span class="team-card__overlay"></span>
+        <div class="team-card__body"><div class="team-card__name">France</div><div class="team-card__count">9 products</div>
+          <span class="team-card__cta">Shop Now <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a href="product.html" class="team-card" data-reveal>
+        <span class="team-card__accent" style="background:linear-gradient(90deg,#006600 0 33%,#FF0000 33% 66%,#FFD700 66% 100%)"></span>
+        <img class="team-card__img media-fade" src="img/team-portugal.svg" alt="Portugal">
+        <span class="team-card__overlay"></span>
+        <div class="team-card__body"><div class="team-card__name">Portugal</div><div class="team-card__count">8 products</div>
+          <span class="team-card__cta">Shop Now <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+    </div>
+  </div></section>
+
+  <!-- BEST SELLERS -->
+  <section class="section" id="sellers"><div class="page-width">
+    <div class="flex-between section-head--left" style="margin-bottom:2.5rem" data-reveal>
+      <div><p class="eyebrow" style="margin-bottom:.5rem">Most Wanted</p><h2 style="margin:0">Best Sellers</h2></div>
+      <div class="slider-nav" data-slider-nav>
+        <button data-slider-prev aria-label="Previous"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button data-slider-next aria-label="Next"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="product-slider" data-slider><div class="product-track" data-slider-track id="sellerTrack"></div></div>
+  </div></section>
+
+  <!-- WHY NOVORA -->
+  <section class="section"><div class="page-width">
+    <div class="section-head" data-reveal><p class="eyebrow">Why Novora</p><h2>Built For The Beautiful Game</h2>
+      <p>Premium quality and service trusted by fans worldwide.</p></div>
+    <div class="feature-grid" id="featureGrid"></div>
+  </div></section>
+
+  <!-- PROMO + COUNTDOWN -->
+  <section class="section"><div class="page-width"><div class="promo-banner" data-reveal>
+    <div class="promo-banner__media"><img src="img/promo.svg" alt=""></div>
+    <div class="promo-banner__overlay"></div>
+    <div class="promo-banner__content">
+      <p class="eyebrow">Limited Drop</p>
+      <h2 class="h1" style="font-size:clamp(2rem,4vw,3.4rem)">The World Cup Collection</h2>
+      <p style="color:rgba(255,255,255,.82);max-width:440px">Celebrate the world's biggest stage with our limited-edition kits. While stocks last.</p>
+      <div class="countdown" data-countdown="">
+        <div class="countdown__unit"><div class="countdown__num" data-cd="days">00</div><div class="countdown__label">Days</div></div>
+        <div class="countdown__unit"><div class="countdown__num" data-cd="hours">00</div><div class="countdown__label">Hours</div></div>
+        <div class="countdown__unit"><div class="countdown__num" data-cd="mins">00</div><div class="countdown__label">Mins</div></div>
+        <div class="countdown__unit"><div class="countdown__num" data-cd="secs">00</div><div class="countdown__label">Secs</div></div>
+      </div>
+      <a href="#sellers" class="btn btn--primary btn--lg">Shop The Drop</a>
+    </div>
+  </div></div></section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section"><div class="page-width">
+    <div class="flex-between section-head--left" style="margin-bottom:2.5rem" data-reveal>
+      <div><p class="eyebrow" style="margin-bottom:.5rem">Customer Reviews</p><h2 style="margin:0">Loved By Fans Worldwide</h2></div>
+      <div class="slider-nav" data-slider-nav>
+        <button data-slider-prev aria-label="Previous"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button data-slider-next aria-label="Next"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div data-slider><div class="testi-track" data-slider-track id="testiTrack"></div></div>
+  </div></section>
+
+  <!-- SOCIAL -->
+  <section class="section" id="social"><div class="page-width">
+    <div class="section-head" data-reveal><p class="eyebrow">Social</p><h2>#WearNovora</h2><p>Tag us to be featured. Join the movement.</p></div>
+    <div class="social-grid" id="socialGrid"></div>
+  </div></section>
+
+  <!-- NEWSLETTER -->
+  <section class="section newsletter"><div class="page-width"><div class="newsletter__inner" data-reveal>
+    <p class="eyebrow">Join The Club</p><h2>Get 10% Off Your First Order</h2>
+    <p class="text-muted">Be first to access limited drops, restocks, and members-only offers.</p>
+    <form class="newsletter__form" onsubmit="event.preventDefault();this.querySelector('input').value='';this.nextElementSibling.hidden=false">
+      <input type="email" placeholder="Enter your email" required aria-label="Email">
+      <button type="submit" class="btn btn--primary">Subscribe</button>
+    </form>
+    <p class="newsletter__note" hidden style="color:var(--color-highlight)">Thanks for subscribing. Your code is on its way.</p>
+    <p class="newsletter__note">No spam. Unsubscribe anytime.</p>
+  </div></div></section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer"><div class="page-width">
+  <div class="footer-top">
+    <div class="footer-brand"><div class="footer-brand__logo">NOVORA</div>
+      <p>Wear Your Passion. Represent Your Colors.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M16 3c.3 2.2 1.7 3.9 4 4.2v3c-1.5 0-2.9-.4-4-1.1V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.1c-.3-.1-.7-.2-1-.2a3 3 0 1 0 3 3V3Z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.2 2H21l-6.5 7.5L22 22h-6l-4.7-6.1L5.9 22H3l7-8L2 2h6.2l4.3 5.6Zm-1 18h1.6L7.1 3.6H5.4Z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><div class="footer-col__title">Shop</div>
+      <a href="product.html">National Teams</a><a href="product.html">Home Kits</a><a href="product.html">Away Kits</a><a href="product.html">New Arrivals</a></div>
+    <div class="footer-col"><div class="footer-col__title">Help</div>
+      <a href="#">Shipping</a><a href="#">Returns</a><a href="#">Size Guide</a><a href="#">Contact</a></div>
+    <div class="footer-col"><div class="footer-col__title">Join the club</div>
+      <p class="text-muted" style="font-size:.88rem;margin-bottom:1rem">Get exclusive drops and 10% off your first order.</p>
+      <div style="display:flex;gap:.5rem">
+        <input type="email" placeholder="Enter your email" style="flex:1;background:var(--color-bg);border:1px solid var(--color-border);color:#fff;border-radius:999px;padding:0 1rem;height:48px">
+        <button class="header-icon" style="background:var(--color-accent);color:#000" aria-label="Subscribe"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Novora. All rights reserved.</div>
+    <div class="footer-selectors">
+      <select aria-label="Language"><option>English</option><option>Español</option><option>Français</option></select>
+      <select aria-label="Currency"><option>United States (USD $)</option><option>United Kingdom (GBP £)</option><option>Europe (EUR €)</option></select>
+    </div>
+  </div>
+</div></footer>
+
+<!-- OVERLAYS -->
+<div class="overlay" data-overlay data-active="false"></div>
+
+<!-- CART DRAWER -->
+<aside id="CartDrawer" class="cart-drawer" data-panel aria-hidden="true" role="dialog" aria-label="Your cart">
+  <header class="cart-drawer__head"><h2 class="cart-drawer__title">Your cart</h2>
+    <button class="cart-drawer__close" data-close aria-label="Close"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </header>
+  <div class="cart-drawer__body" data-cart-body>
+    <div class="ship-bar" data-shipbar><div class="ship-bar__text" data-shipbar-text></div>
+      <div class="ship-bar__track"><div class="ship-bar__fill" data-shipbar-fill></div></div></div>
+    <div class="cart-upsell">
+      <div class="cart-upsell__title">You might also like</div>
+      <div class="cart-upsell__item"><img src="img/jersey-5.svg#" alt=""><div><div style="font-weight:600;font-size:.88rem">England Home Jersey</div><div class="text-muted" style="font-size:.82rem">$85.00</div></div><button class="cart-upsell__add" data-upsell-add="1005">Add</button></div>
+      <div class="cart-upsell__item"><img src="img/jersey-6.svg#" alt=""><div><div style="font-weight:600;font-size:.88rem">Spain Home Jersey</div><div class="text-muted" style="font-size:.82rem">$89.00</div></div><button class="cart-upsell__add" data-upsell-add="1006">Add</button></div>
+    </div>
+  </div>
+  <footer class="cart-drawer__foot" data-cart-foot hidden>
+    <div class="cart-discount"><input type="text" placeholder="Discount code" aria-label="Discount code"><button class="btn btn--secondary">Apply</button></div>
+    <div class="cart-subtotal"><span>Subtotal</span><span data-cart-subtotal></span></div>
+    <button class="btn btn--primary btn--full btn--lg">Checkout</button>
+    <p class="cart-taxnote">Taxes and shipping calculated at checkout</p>
+  </footer>
+</aside>
+
+<!-- MOBILE MENU -->
+<nav id="MobileMenu" class="mobile-drawer" data-panel aria-hidden="true" aria-label="Menu">
+  <div class="flex-between" style="margin-bottom:1.5rem"><span class="site-logo">NOVORA</span>
+    <button class="cart-drawer__close" data-close aria-label="Close"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+  <div class="mobile-drawer__links"><a href="product.html">Shop</a><a href="#teams" data-close>Teams</a><a href="#sellers" data-close>Best Sellers</a><a href="#social" data-close>Journal</a></div>
+</nav>
+
+<!-- SEARCH MODAL -->
+<div id="SearchModal" class="modal" data-panel aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__dialog" style="width:min(640px,100%);align-self:flex-start;margin-top:12vh">
+    <div class="modal__body" style="text-align:left;padding:1.5rem">
+      <form style="display:flex;gap:.6rem" onsubmit="event.preventDefault()">
+        <input type="search" placeholder="Search for jerseys, teams, collections..." style="flex:1;background:var(--color-bg);border:1px solid var(--color-border);color:#fff;border-radius:999px;padding:0 1.2rem;height:54px" aria-label="Search">
+        <button type="submit" class="btn btn--primary">Search</button>
+      </form>
+      <div class="text-muted mt-2" style="font-size:.82rem">Popular: National Teams · Home Kits · Away Kits · Retro</div>
+    </div>
+  </div>
+</div>
+
+<!-- DISCOUNT POPUP -->
+<div class="modal" data-popup data-popup-delay="5" aria-hidden="true">
+  <div class="modal__backdrop" data-popup-close></div>
+  <div class="modal__dialog">
+    <button class="modal__close" data-popup-close aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="modal__media"><img src="img/promo.svg" alt=""></div>
+    <div class="modal__body">
+      <p class="eyebrow">Welcome To Novora</p><div class="modal__discount">10% OFF</div>
+      <h3 style="margin:.4rem 0 .6rem">Your First Order</h3>
+      <p class="text-muted">Join the club for an instant discount, early access to drops, and members-only offers.</p>
+      <form class="newsletter__form" style="margin-top:1.2rem" onsubmit="event.preventDefault();this.closest('.modal').setAttribute('data-active','false')">
+        <input type="email" placeholder="Enter your email" required aria-label="Email">
+        <button type="submit" class="btn btn--primary">Claim My Discount</button>
+      </form>
+      <button class="link-underline text-muted mt-2" data-popup-close style="font-size:.82rem;background:none">No thanks, I'll pay full price</button>
+    </div>
+  </div>
+</div>
+
+<!-- RECENT PURCHASE TOAST -->
+<div class="purchase-toast" data-purchase-toast data-visible="false" role="status" aria-live="polite">
+  <img data-toast-img src="" alt="" width="50" height="50">
+  <div style="flex:1;min-width:0"><div class="purchase-toast__name" data-toast-name>Someone</div>
+    <div class="purchase-toast__meta" data-toast-meta></div><div class="purchase-toast__time" data-toast-time></div></div>
+  <button data-toast-close aria-label="Close" style="align-self:flex-start;color:var(--color-muted)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+<script type="application/json" data-purchase-data>
+[{"title":"Brazil Home Jersey 24/25","image":"img/jersey-1.svg#"},{"title":"Argentina Home Jersey 24/25","image":"img/jersey-2.svg#"},{"title":"France Away Jersey 24/25","image":"img/jersey-3.svg#"},{"title":"Portugal Home Jersey 24/25","image":"img/jersey-4.svg#"}]
+</script>
+
+<div class="preview-ribbon">Static preview · powered by the real <b>theme.css</b> + <b>theme.js</b></div>
+
+<!-- BUILD DEMO CONTENT then load theme -->
+<script>
+(function(){
+  var stars='<span class="stars" role="img" aria-label="5 out of 5">'+Array(5).join()+
+    '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8Z"/></svg>'.repeat(5)+'</span>';
+  var arrow='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  var heart='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>';
+  var products=[
+    ['1001','Brazil','Brazil Home Jersey 24/25','$89.00','',1],
+    ['1002','Argentina','Argentina Home Jersey 24/25','$89.00','',2],
+    ['1003','France','France Away Jersey 24/25','$94.00','$110.00',3],
+    ['1004','Portugal','Portugal Home Jersey 24/25','$89.00','',4],
+    ['1005','England','England Home Jersey 24/25','$85.00','',5],
+    ['1006','Spain','Spain Home Jersey 24/25','$89.00','',6],
+    ['1007','Germany','Germany Away Jersey 24/25','$94.00','$110.00',7],
+    ['1008','Italy','Italy Home Jersey 24/25','$89.00','',8]
+  ];
+  document.getElementById('sellerTrack').innerHTML=products.map(function(p){
+    var price=p[4]?'<span class="price"><span class="price__sale">'+p[3]+'</span> <span class="price__compare">'+p[4]+'</span></span>':'<span class="price">'+p[3]+'</span>';
+    var badge=p[4]?'<div class="product-card__badges"><span class="badge badge--sale">Save 15%</span></div>':'';
+    return '<article class="product-card" data-reveal><a href="product.html" class="product-card__media">'+
+      '<img class="product-card__img product-card__img--one is-solo media-fade" src="img/jersey-'+p[5]+'.svg" alt="'+p[2]+'">'+badge+
+      '<button class="product-card__wishlist" data-wishlist="'+p[0]+'" aria-label="Wishlist">'+heart+'</button>'+
+      '<div class="product-card__quickadd"><button class="btn btn--primary btn--full" data-quick-add="'+p[0]+'">Quick add</button></div>'+
+      '</a><div class="product-card__body"><div class="product-card__team">'+p[1]+'</div>'+
+      '<h3 class="product-card__title"><a href="product.html">'+p[2]+'</a></h3>'+
+      '<div class="product-card__meta">'+price+stars+'</div></div></article>';
+  }).join('');
+
+  var feats=[['medal','Premium Materials','Breathable, match-grade fabrics built to last.'],
+    ['truck','Worldwide Shipping','Fast, tracked delivery to 100+ countries.'],
+    ['lock','Secure Checkout','256-bit encrypted, trusted payment options.'],
+    ['refresh','Easy Returns','30-day hassle-free returns and exchanges.'],
+    ['shield','Quality Guaranteed','Every kit backed by our quality promise.']];
+  var icons={medal:'<path d="M7.5 2 12 9l4.5-7"/><circle cx="12" cy="15" r="6"/>',
+    truck:'<path d="M14 18V6a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h1"/><path d="M14 9h4l4 4v4a1 1 0 0 1-1 1h-1"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
+    lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    refresh:'<path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/>',
+    shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>'};
+  document.getElementById('featureGrid').innerHTML=feats.map(function(f){
+    return '<div class="feature-card" data-reveal><div class="feature-card__icon">'+
+      '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+icons[f[0]]+'</svg></div>'+
+      '<h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';
+  }).join('');
+
+  var revs=[['J','James R.','Best jersey I\'ve ever owned. The quality is unreal and shipping was fast.',1],
+    ['S','Sofia M.','Looks exactly like the photos. Premium feel, perfect fit. Buying another.',2],
+    ['D','Daniel K.','Customer service was incredible and the kit arrived in 4 days. 10/10.',3],
+    ['A','Aisha B.','Obsessed. The detailing is luxury level. Worth every penny.',4]];
+  document.getElementById('testiTrack').innerHTML=revs.map(function(r){
+    return '<article class="testi-card" data-reveal>'+stars+'<p class="testi-card__quote">"'+r[2]+'"</p>'+
+      '<div class="testi-card__foot"><img class="testi-card__avatar" src="img/avatar-'+r[3]+'.svg" alt="'+r[1]+'">'+
+      '<div><div class="testi-card__name">'+r[1]+'</div><div class="testi-card__verified">'+
+      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg> Verified Buyer</div></div></div></article>';
+  }).join('');
+
+  document.getElementById('socialGrid').innerHTML=[1,2,3,4,5,6].map(function(i){
+    return '<a href="#" class="social-tile" data-reveal><img class="media-fade" src="img/social-'+i+'.svg" alt="">'+
+      '<span class="social-tile__icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></span></a>';
+  }).join('');
+})();
+</script>
+<script src="preview-shim.js"></script>
+<script src="../assets/theme.js"></script>
+</body>
+</html>
