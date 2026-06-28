@@ -58,7 +58,7 @@
     <script>
       window.Shopify = window.Shopify || {};
       window.Shopify.routes = window.Shopify.routes || {{ routes | json }};
-      window.Shopify.currency = {{ shop.currency | json | prepend: '{"active":' | append: '}' }};
+      window.Shopify.currency = { "active": {{ shop.currency | json }} };
       window.NovoraCart = {
         drawerEnabled: {{ settings.cart_drawer_enabled | json }},
         freeShipThreshold: {{ settings.free_shipping_threshold | default: 0 }},
