@@ -1,0 +1,122 @@
+<section class="section cart-page">
+  <div class="wrap">
+    <div class="cart-page__head">
+      <h1 class="cart-page__title">Your Cart</h1>
+      {%- if cart.item_count > 0 -%}
+        <p class="cart-page__count">{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-empty">
+        <svg class="cart-empty__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <h2 class="cart-empty__heading">Your cart is empty</h2>
+        <p class="cart-empty__sub">Looks like you haven&rsquo;t added any jerseys yet.</p>
+        <a href="/" class="btn btn--dark btn--lg">Browse Jerseys</a>
+      </div>
+
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="cart-form">
+        <div class="cart-layout">
+
+          <!-- Items -->
+          <div class="cart-items">
+            {%- for item in cart.items -%}
+              <div class="cart-item" data-item-key="{{ item.key }}">
+                <div class="cart-item__image-wrap">
+                  {%- if item.image -%}
+                    <img class="cart-item__image" src="{{ item.image | image_url: width: 200 }}"
+                      alt="{{ item.image.alt | escape }}" width="100" height="100" loading="lazy">
+                  {%- else -%}
+                    <div class="cart-item__image cart-item__image--blank">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m3 9 4-4 4 4 4-4 4 4"/><path d="m3 15 4 4 4-4 4 4 4-4"/></svg>
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <div class="cart-item__details">
+                  <div class="cart-item__top">
+                    <div class="cart-item__info">
+                      <p class="cart-item__title">{{ item.product.title }}</p>
+                      {%- unless item.variant.title == 'Default Title' -%}
+                        <p class="cart-item__variant">{{ item.variant.title }}</p>
+                      {%- endunless -%}
+                      {%- if item.properties.size > 0 -%}
+                        {%- for p in item.properties -%}
+                          {%- unless p.last == blank -%}
+                            <p class="cart-item__prop"><span class="cart-item__prop-key">{{ p.first }}:</span> {{ p.last }}</p>
+                          {%- endunless -%}
+                        {%- endfor -%}
+                      {%- endif -%}
+                    </div>
+                    <p class="cart-item__line-price" data-line-price="{{ item.key }}">{{ item.line_price | money }}</p>
+                  </div>
+
+                  <div class="cart-item__bottom">
+                    <div class="cart-item__qty">
+                      <button type="button" class="cart-item__qty-btn" data-qty-minus data-key="{{ item.key }}" aria-label="Decrease quantity">−</button>
+                      <input class="cart-item__qty-input" type="number" name="updates[{{ item.key }}]" value="{{ item.quantity }}" min="1" max="99" aria-label="Quantity" data-qty-input data-key="{{ item.key }}">
+                      <button type="button" class="cart-item__qty-btn" data-qty-plus data-key="{{ item.key }}" aria-label="Increase quantity">+</button>
+                    </div>
+                    <button type="button" class="cart-item__remove" data-remove="{{ item.key }}" aria-label="Remove {{ item.product.title }} from cart">Remove</button>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <!-- Summary -->
+          <div class="cart-summary">
+            <div class="cart-summary__inner">
+              <h2 class="cart-summary__title">Order Summary</h2>
+
+              <div class="cart-summary__row">
+                <span>Subtotal</span>
+                <span class="cart-summary__subtotal" id="cart-subtotal">{{ cart.total_price | money }}</span>
+              </div>
+              {%- if cart.total_discount > 0 -%}
+                <div class="cart-summary__row cart-summary__row--discount">
+                  <span>Savings</span>
+                  <span>−{{ cart.total_discount | money }}</span>
+                </div>
+              {%- endif -%}
+              <p class="cart-summary__note">Shipping &amp; taxes calculated at checkout</p>
+
+              <button type="submit" name="checkout" class="btn btn--dark btn--block btn--lg cart-summary__checkout">
+                Proceed to Checkout
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+
+              <a href="/" class="btn btn--outline btn--block cart-summary__continue">&#8592; Continue Shopping</a>
+
+              <div class="cart-summary__trust">
+                <span class="cart-summary__trust-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                  Secure Checkout
+                </span>
+                <span class="cart-summary__trust-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                  Worldwide Shipping
+                </span>
+                <span class="cart-summary__trust-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+                  30-Day Returns
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

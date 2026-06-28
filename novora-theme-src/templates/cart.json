@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "2026 World Cup jerseys from $24.99 · 16 nations + custom available",
+        "link_text": "Shop now",
+        "link": "/"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_text": "NOVORA",
+        "cta_text": "Shop Jerseys"
+      }
+    },
+    "main-cart": {
+      "type": "main-cart",
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "logo_text": "NOVORA",
+        "tagline": "Official fan jerseys for every nation."
+      }
+    }
+  },
+  "order": ["announcement", "header", "main-cart", "footer"]
+}
