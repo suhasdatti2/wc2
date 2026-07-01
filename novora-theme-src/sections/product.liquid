@@ -1,8 +1,8 @@
-{%- assign product = all_products['novora-world-cup-jersey'] -%}
+{%- assign product = all_products['optiq-world-cup-jersey'] -%}
 {%- if product -%}
 <script>
-window.__novoraVariants=(function(){var m={};{%- for v in product.variants -%}m["{{ v.option1 }}/{{ v.option2 }}"]={% if v.available %}{{ v.id }}{% else %}0{% endif %};{%- endfor -%}return m;})();
-window.__novoraDefaultVariant={{ product.first_available_variant.id | default: product.variants.first.id }};
+window.__optiqVariants=(function(){var m={};{%- for v in product.variants -%}m["{{ v.option1 }}/{{ v.option2 }}"]={% if v.available %}{{ v.id }}{% else %}0{% endif %};{%- endfor -%}return m;})();
+window.__optiqDefaultVariant={{ product.first_available_variant.id | default: product.variants.first.id }};
 </script>
 {%- endif -%}
 <section class="section product" id="product">
@@ -15,7 +15,7 @@ window.__novoraDefaultVariant={{ product.first_available_variant.id | default: p
           file: section.settings.file_1,
           id: 'ProdMain',
           class: 'product__main-img2',
-          alt: 'Novora World Cup jersey',
+          alt: 'Optiq World Cup jersey',
           loading: 'eager' %}
         {%- if section.settings.cap_1 != blank -%}
           <span class="product__caption" id="ProdCaption">{{ section.settings.cap_1 }}</span>
@@ -50,8 +50,8 @@ window.__novoraDefaultVariant={{ product.first_available_variant.id | default: p
 
     <!-- Details -->
     <div class="product__details reveal">
-      <p class="product__label">NOVORA · OFFICIAL FAN KIT</p>
-      <h1 class="product__title">Novora World Cup Jersey</h1>
+      <p class="product__label">OPTIQ · NATION FAN JERSEY</p>
+      <h1 class="product__title">Optiq World Cup Jersey</h1>
 
       <div class="product__rating">
         <span class="product__stars">★★★★★</span>

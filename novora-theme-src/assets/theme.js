@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NOVORA theme — vanilla JS, no dependencies.
+   OPTIQ theme — vanilla JS, no dependencies.
    Scroll reveal · sticky header · mobile nav · accordions · ticker ·
    gallery swap · color swatches · add-to-cart feedback
    Editor-safe: re-initialises sections re-rendered by the Shopify theme
@@ -11,7 +11,7 @@
   var inEditor = window.Shopify && window.Shopify.designMode;
 
   ready(function () {
-    window.__novoraReady = true;
+    window.__optiqReady = true;
     revealInit(document);
     stickyHeader();
     bindAll(document);
@@ -218,12 +218,12 @@
 
     function updateVariant() {
       var input = document.getElementById('selected-variant-id');
-      if (!input || !window.__novoraVariants) return;
+      if (!input || !window.__optiqVariants) return;
       var nationEl = document.querySelector('[data-swatches][aria-label="Nation"] [data-swatch].is-active');
       var sizeEl = document.querySelector('[data-swatches][aria-label="Size"] [data-swatch].is-active');
       if (!nationEl || !sizeEl) return;
       var key = nationEl.dataset.swatch + '/' + sizeEl.dataset.swatch;
-      var id = window.__novoraVariants[key];
+      var id = window.__optiqVariants[key];
       if (id) input.value = id;
     }
     updateVariant();
